@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>フレームワーク・ライブラリ チート表 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
+  :root {
+    --bg: #080b10;
+    --surface: #0e1118;
+    --surface2: #141820;
+    --surface3: #1a1f2c;
+    --border: #232838;
+    --border2: #2e3445;
+    --green: #00d4a0;
+    --orange: #f59e0b;
+    --blue: #3b9eff;
+    --purple: #a78bfa;
+    --red: #f06070;
+    --cyan: #22d3ee;
+    --yellow: #fde68a;
+    --text: #c8d0e0;
+    --text-dim: #58637a;
+    --text-bright: #edf2ff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 12.5px;
+    line-height: 1.65;
+    padding: 28px 20px 80px;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    margin-bottom: 36px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--green);
+    position: relative;
+  }
+
+  header h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    color: var(--green);
+    letter-spacing: 0.04em;
+  }
+  header p {
+    color: var(--text-dim);
+    font-size: 10.5px;
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ---- SECTION ---- */
+  .section-block { margin-bottom: 48px; }
+
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    /* padding: 6px 12px 6px 14px; */
+    /* border-left: 3px solid var(--orange); */
+    color: var(--orange);
+    /* background: rgba(245,158,11,0.06); */
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+
+  .section-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+    padding-left: 2px;
+  }
+
+  /* ---- TABLE ---- */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1000px;
+  }
+
+  thead tr {
+    background: var(--surface2);
+  }
+
+  th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    /* color: var(--cyan); */
+    letter-spacing: 0.07em;
+    padding: 9px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border2);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #12161f;
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(0,212,160,0.025); }
+
+  /* Alternate row tinting */
+  tbody tr:nth-child(even) td { background: rgba(255,255,255,0.012); }
+  tbody tr:nth-child(even):hover td { background: rgba(0,212,160,0.025); }
+
+  /* ---- CELLS ---- */
+  .fw-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--text-bright);
+    white-space: nowrap;
+  }
+
+  .fw-sub {
+    font-size: 10px;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    display: block;
+    margin-top: 1px;
+  }
+
+  .desc { color: var(--text); line-height: 1.6; max-width: 360px; font-size: 12px; }
+  .desc-wide { max-width: 460px; }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    font-size: 9.5px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin: 1px 2px 1px 0;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+    line-height: 1.6;
+  }
+  .t-fe  { background:#1a3050; color:#60a8e0; border:1px solid #1e3d66; }
+  .t-be  { background:#1a3330; color:#40c8a0; border:1px solid #1e4440; }
+  .t-fs  { background:#2a2040; color:#9876d0; border:1px solid #382d55; }
+  .t-ai  { background:#133328; color:#00d4a0; border:1px solid #184438; }
+  .t-ml  { background:#182830; color:#22d3ee; border:1px solid #1e3840; }
+  .t-mob { background:#2a1a38; color:#c084fc; border:1px solid #381f4e; }
+  .t-db  { background:#2a2210; color:#f59e0b; border:1px solid #3a3015; }
+  .t-css { background:#142030; color:#38bdf8; border:1px solid #183040; }
+  .t-test{ background:#181818; color:#a0a0a0; border:1px solid #282828; }
+  .t-devops{background:#0e2020; color:#34d399; border:1px solid #103030; }
+  .t-data { background:#101a30; color:#6ea8fe; border:1px solid #152240; }
+  .t-rt  { background:#301a10; color:#fb923c; border:1px solid #401f10; }
+
+  /* Stars / demand */
+  .stars {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    white-space: nowrap;
+  }
+  .s5 { color: var(--green); }
+  .s4 { color: #6ee7b7; }
+  .s3 { color: var(--orange); }
+  .s2 { color: #f97316; }
+  .s1 { color: var(--text-dim); }
+
+  /* Trend */
+  .trend {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    white-space: nowrap;
+  }
+  .t-up   { color: var(--green); font-weight:700; }
+  .t-up2  { color: #00ffb8; font-weight:700; }
+  .t-flat { color: var(--text-dim); }
+  .t-dn   { color: var(--red); }
+  .t-new  { color: var(--blue); font-weight:700; }
+  .t-gem  { color: var(--yellow); font-weight:700; }
+
+  /* Diff */
+  .diff {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    white-space: nowrap;
+  }
+  .d-hi  { color: var(--red); }
+  .d-mid { color: var(--orange); }
+  .d-lo  { color: var(--green); }
+
+  /* Compat list */
+  .compat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+  .compat b { color: var(--text); }
+
+  /* "hidden gem" row highlight */
+  .gem-row td {
+    background: rgba(253,230,138,0.03) !important;
+    border-left: 1px solid rgba(253,230,138,0.2);
+  }
+  .gem-row:hover td { background: rgba(253,230,138,0.06) !important; }
+
+  /* category divider row */
+  .cat-row td {
+    background: var(--surface3) !important;
+    color: var(--blue);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 5px 12px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border2);
+  }
+
+  /* badges */
+  .badge {
+    display: inline-block;
+    font-size: 9px;
+    padding: 1px 5px;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    margin-left: 4px;
+    vertical-align: middle;
+    letter-spacing: 0.04em;
+  }
+  .b-gem   { background:#2a250a; color:#fde68a; border:1px solid #fde68a44; }
+  .b-hot   { background:#2a1010; color:#f06070; border:1px solid #f0607044; }
+  .b-new   { background:#0a1a2a; color:#3b9eff; border:1px solid #3b9eff44; }
+  .b-meta  { background:#1a1030; color:#a78bfa; border:1px solid #a78bfa44; }
+  .b-depr  { background:#1a1010; color:#6b748a; border:1px solid #6b748a44; }
+  .b-std   { background:#0a2018; color:#00d4a0; border:1px solid #00d4a044; }
+
+  /* year pill */
+  .year {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--text-dim);
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0 5px;
+    white-space: nowrap;
+  }
+
+  /* best used / pairing */
+  .pair {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.7;
+  }
+  .pair b { color: var(--text); }
+
+  .source-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 28px;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+
+  .legend-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+  }
+  .legend-wrap span { display:flex; align-items:center; gap:4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>// FRAMEWORK & LIBRARY CHEAT SHEET 2026</h1>
+  <p>// Sources: Stack Overflow Survey 2025 · State of JS 2024 · GitHub Stars 2025 · JetBrains Ecosystem Report 2024 · npm trends</p>
+  <p>// 🌟 = Hidden Gem / 高品質だが過小評価  ·  🔥 = 急伸中  ·  ✦ = 新興  ·  ✓ = デファクトスタンダード</p>
+</header>
+
+
+<!-- ============================================================
+     01. フロントエンド UI フレームワーク
+     ============================================================ -->
+<div class="section-block">
+<div class="section-title">01 / フロントエンド UI フレームワーク・ライブラリ</div>
+<div class="section-note">// 対象言語: JavaScript / TypeScript   利用率: SO Survey 2025 (49,000+ 開発者)</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr>
+    <th>名称</th>
+    <th>種別</th>
+    <th>登場</th>
+    <th>利用率</th>
+    <th>Admired</th>
+    <th>難易度</th>
+    <th>特徴・適した開発</th>
+    <th>相性◎ スタック</th>
+    <th>動向・今後</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><span class="fw-name">React</span><span class="badge b-std">✓ デファクト</span></td>
+  <td><span class="tag t-fe">Frontend</span></td>
+  <td><span class="year">2013 / Meta</span></td>
+  <td><span class="stars s5">44.7%</span></td>
+  <td><span class="stars s3">52.1%</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">コンポーネント指向UIライブラリ。仮想DOM・JSX。React 19でコンパイラ導入、Server Componentsが成熟。SPAからSSR・RSCまで対応。エコシステム最大規模。求人数・案件数ともにトップ。</td>
+  <td class="pair"><b>Next.js</b>, TypeScript, Tailwind, Zustand, React Query</td>
+  <td><span class="trend t-flat">→ 安定首位</span><br><small>エコシステム慣性が強く当面揺るがない。Server Components普及が今後の焦点。</small></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Vue.js</span></td>
+  <td><span class="tag t-fe">Frontend</span></td>
+  <td><span class="year">2014 / Evan You</span></td>
+  <td><span class="stars s3">17.6%</span></td>
+  <td><span class="stars s3">50.9%</span></td>
+  <td><span class="diff d-lo">低〜中</span></td>
+  <td class="desc">学習コスト低めでReactに近い機能を提供。Vue 3.6でVapor Mode（仮想DOM廃止）導入、パフォーマンス大幅改善。日本国内での採用率が世界比で高い傾向。中小企業・スタートアップで人気。</td>
+  <td class="pair"><b>Nuxt.js</b>, Vite, Pinia, TypeScript</td>
+  <td><span class="trend t-flat">→ 安定</span><br><small>Vapor Modeでパフォーマンス競争に再参戦。日本では根強い需要。</small></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Angular</span></td>
+  <td><span class="tag t-fe">Frontend</span></td>
+  <td><span class="year">2016 / Google</span></td>
+  <td><span class="stars s3">18.2%</span></td>
+  <td><span class="stars s2">44.7%</span></td>
+  <td><span class="diff d-hi">高</span></td>
+  <td class="desc">TypeScript必須のフルフレームワーク。DI・モジュール・テストが一体。大企業・金融・官公庁系SIerが採用。フロントエンドの「Java Spring」的ポジション。Signsals API導入でパフォーマンス改善中。</td>
+  <td class="pair"><b>RxJS</b>, NgRx, TypeScript, NestJS</td>
+  <td><span class="trend t-flat">→ 安定</span><br><small>エンタープライズ基盤として堅固。Angularしか使わないSIer案件が国内に多数。</small></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Svelte</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-fe">Frontend</span></td>
+  <td><span class="year">2016 / Rich Harris</span></td>
+  <td><span class="stars s2">7.2%</span></td>
+  <td><span class="stars s5">62.4%</span><small>（1位）</small></td>
+  <td><span class="diff d-lo">低〜中</span></td>
+  <td class="desc">コンパイラ型FW。ビルド時にバニラJSへ変換し仮想DOMなし。バンドルサイズがReactの30〜40%小。Reactと同評価でAdmired 1位継続。コードが少なく書けて高パフォーマンス。Svelte 5でRunes（リアクティビティ刷新）。</td>
+  <td class="pair"><b>SvelteKit</b>, Vite, TypeScript, Cloudflare</td>
+  <td><span class="trend t-up">↑ 上昇中</span><br><small>「書いていて一番楽しい」と言う開発者が多い。パフォーマンス重視プロジェクトで採用増。</small></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">SolidJS</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-fe">Frontend</span></td>
+  <td><span class="year">2021 / Ryan Carniato</span></td>
+  <td><span class="stars s1">〜2%</span></td>
+  <td><span class="stars s4">高評価</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">ReactライクなJSXシンタックスで仮想DOMを一切使わない細粒度リアクティビティ。DOM直接更新でパフォーマンスベンチマーク上位常連。「Reactより速い別のReact」。SaaS・ダッシュボード・金融系に最適。信号（Signals）という概念の先駆者。</td>
+  <td class="pair"><b>SolidStart</b>（フルスタック）, Vite</td>
+  <td><span class="trend t-up">↑ 注目上昇</span><br><small>求人はまだ少ないが技術者の間で高評価。ReactがSignals取り込み後に注目度↑見込み。</small></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Qwik</span><span class="badge b-new">✦ 新興</span></td>
+  <td><span class="tag t-fe">Frontend</span></td>
+  <td><span class="year">2022 / Builder.io</span></td>
+  <td><span class="stars s1">〜1%</span></td>
+  <td><span class="stars s3">注目</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">「再開可能性（Resumability）」という革新的概念。サーバーでシリアライズしたアプリ状態をクライアントで復元、ハイドレーション不要。初期JSペイロードほぼゼロ。Qwik 2.0リリース。EC・メディア・SEO重視サイトに最適。Core Web Vitals改善に圧倒的効果。</td>
+  <td class="pair"><b>QwikCity</b>（フルスタック）, Partytown</td>
+  <td><span class="trend t-new">✦ 技術革新型</span><br><small>ハイドレーション問題の根本解決。スタートアップや大規模コンテンツサイトでの採用が増加。</small></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">HTMX</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-fe">Frontend</span></td>
+  <td><span class="year">2020 / Carson Gross</span></td>
+  <td><span class="stars s2">ニッチ</span></td>
+  <td><span class="stars s4">高評価</span></td>
+  <td><span class="diff d-lo">低</span></td>
+  <td class="desc">HTML属性にAJAX・SSE・WebSocketを直接記述。JSほぼ不要。GitHub Starsで一時React超え（47K超）。「SPAが必要ない多くのケースでこれで十分」という声多数。バックエンドエンジニアがフロントも書ける。Django/Flask/Rails/Goとの相性◎。</td>
+  <td class="pair"><b>Django / Flask</b>, Rails, Go/Chi, Alpine.js</td>
+  <td><span class="trend t-up">↑ 再注目</span><br><small>複雑なJSエコシステムへの反動として支持拡大。社内ツール・管理画面に最適解。</small></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Alpine.js</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-fe">Frontend</span></td>
+  <td><span class="year">2019</span></td>
+  <td><span class="stars s1">ニッチ</span></td>
+  <td><span class="stars s3">高評価</span></td>
+  <td><span class="diff d-lo">低</span></td>
+  <td class="desc">「モダンWebの jQuery」。HTMLに属性を加えるだけで軽量リアクティビティ。CDN 1行で使え、ビルドステップ不要。HTMXとの組み合わせが最強。既存のサーバーレンダリングにスプリンクルするのに最適。</td>
+  <td class="pair"><b>HTMX</b>, Tailwind, Laravel Livewire</td>
+  <td><span class="trend t-flat">→ ニッチ安定</span><br><small>重いSPAを避けたいバックエンド開発者に根強い人気。</small></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+
+<!-- ============================================================
+     02. メタフレームワーク（フルスタック）
+     ============================================================ -->
+<div class="section-block">
+<div class="section-title">02 / メタフレームワーク（フルスタック）</div>
+<div class="section-note">// SSR・SSG・APIルートを統合した「フレームワークのフレームワーク」。現代開発の主流。</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr>
+    <th>名称</th>
+    <th>ベース</th>
+    <th>登場</th>
+    <th>利用率</th>
+    <th>難易度</th>
+    <th>特徴・用途</th>
+    <th>相性◎ スタック</th>
+    <th>動向</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><span class="fw-name">Next.js</span><span class="badge b-std">✓ Web標準</span></td>
+  <td><span class="tag t-fe">React</span></td>
+  <td><span class="year">2016 / Vercel</span></td>
+  <td><span class="stars s5">トップ</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">ReactのデファクトFW。App Router・Server Actions・Partial Prerendering（PPR）。SEO・EC・SaaS・コーポレートサイトまで全用途対応。GitHub Stars 120K、年+15%。Vercelとの親和性◎。AIスタートアップ採用率圧倒的1位。</td>
+  <td class="pair"><b>Vercel / Cloudflare</b>, Prisma, Supabase, Tailwind, Drizzle</td>
+  <td><span class="trend t-up">↑↑ 独走</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Nuxt.js</span></td>
+  <td><span class="tag t-fe">Vue</span></td>
+  <td><span class="year">2016</span></td>
+  <td><span class="stars s3">中位</span></td>
+  <td><span class="diff d-lo">低〜中</span></td>
+  <td class="desc">VueエコシステムのNext.js相当。Nuxt 4でパフォーマンス大幅改善。日本でのVue人気から国内採用率が世界比で高め。ファイルベースルーティングで小〜中規模に最適。</td>
+  <td class="pair"><b>Vue 3</b>, Nitro, Pinia, Tailwind</td>
+  <td><span class="trend t-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">SvelteKit</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-fe">Svelte</span></td>
+  <td><span class="year">2020</span></td>
+  <td><span class="stars s2">低〜中</span></td>
+  <td><span class="diff d-lo">低</span></td>
+  <td class="desc">SvelteのフルスタックFW。軽量・高速でViteベース。Edge対応、アダプター方式で各種ホスティングへの移植が容易。Svelteの「書きやすさ」をフルスタックで享受できる唯一の選択肢。</td>
+  <td class="pair"><b>Vite</b>, Cloudflare Workers, Drizzle, Tailwind</td>
+  <td><span class="trend t-up">↑ 上昇</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Remix / React Router v7</span></td>
+  <td><span class="tag t-fe">React</span></td>
+  <td><span class="year">2021 / Shopify→OSS</span></td>
+  <td><span class="stars s2">中</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">Web標準（Form/Fetch）ファーストの設計思想。Remixv3でReact Router v7に統合。Webプラットフォームの仕様に忠実な実装。Edgeデプロイとの相性が最高クラス。データローダーとアクションが直感的。</td>
+  <td class="pair"><b>Cloudflare Workers</b>, Fly.io, Prisma</td>
+  <td><span class="trend t-up">↑ 再評価</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Astro</span><span class="badge b-hot">🔥 急伸</span></td>
+  <td><span class="tag t-fe">複数対応</span></td>
+  <td><span class="year">2021</span></td>
+  <td><span class="stars s3">急増中</span></td>
+  <td><span class="diff d-lo">低</span></td>
+  <td class="desc">「Islands Architecture」採用。デフォルトでJS送信ゼロ、必要部分のみインタラクティブ化。React/Vue/Svelte/Solidを同一プロジェクトで混在可。ブログ・ドキュメント・マーケティングサイト・ポートフォリオに最適。SEO・Core Web Vitalsが抜群。</td>
+  <td class="pair"><b>Tailwind</b>, Cloudflare Pages, MDX, React/Svelte</td>
+  <td><span class="trend t-up2">↑↑ 急伸</span><br><small>コンテンツサイトのNext.js代替として急増。AI生成サイトとの相性も◎。</small></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Analog.js</span><span class="badge b-new">✦ 新興</span></td>
+  <td><span class="tag t-fe">Angular</span></td>
+  <td><span class="year">2022</span></td>
+  <td><span class="stars s1">ニッチ</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">Angularの「Next.js版」。ファイルベースルーティング・SSR・SSG対応。Angularユーザーがフルスタック開発できる唯一の選択肢。Angular + SSRを必要とするエンタープライズに刺さる。</td>
+  <td class="pair"><b>Angular</b>, Vite, Nitro</td>
+  <td><span class="trend t-up">↑ 成長中</span></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+
+<!-- ============================================================
+     03. バックエンド・API フレームワーク
+     ============================================================ -->
+<div class="section-block">
+<div class="section-title">03 / バックエンド・API フレームワーク</div>
+<div class="section-note">// Node.js/Python/Go 等のバックエンド中心。利用率: SO Survey 2025</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr>
+    <th>名称</th>
+    <th>言語</th>
+    <th>登場</th>
+    <th>利用率</th>
+    <th>難易度</th>
+    <th>特徴・適した開発</th>
+    <th>相性◎ スタック</th>
+    <th>動向</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><span class="fw-name">Node.js</span><span class="badge b-std">✓ 基盤</span></td>
+  <td><span class="tag t-be">JavaScript</span></td>
+  <td><span class="year">2009</span></td>
+  <td><span class="stars s5">48.7%</span></td>
+  <td><span class="diff d-lo">低〜中</span></td>
+  <td class="desc">JS/TSのサーバーランタイム。非同期I/Oでリアルタイム・マイクロサービスに強い。Express/Fastify/Honoのベース。npm最大エコシステム。フロントエンドエンジニアがバックエンドも書ける。</td>
+  <td class="pair"><b>Express / Fastify</b>, PostgreSQL, Redis</td>
+  <td><span class="trend t-flat">→ 安定</span><br><small>BunやDenoに一部侵食されるも依然最大勢力。</small></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Express.js</span></td>
+  <td><span class="tag t-be">Node.js</span></td>
+  <td><span class="year">2010</span></td>
+  <td><span class="stars s4">高</span></td>
+  <td><span class="diff d-lo">低</span></td>
+  <td class="desc">Node.jsの定番ミニマリストFW。ミドルウェア方式でシンプル・柔軟。REST API・小〜中規模サービスに。学習コスト最低でバックエンド入門に最適。</td>
+  <td class="pair"><b>Node.js</b>, MongoDB, JWT, TypeScript</td>
+  <td><span class="trend t-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Fastify</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-be">Node.js</span></td>
+  <td><span class="year">2016</span></td>
+  <td><span class="stars s3">中</span></td>
+  <td><span class="diff d-lo">低〜中</span></td>
+  <td class="desc">Expressの後継候補。スループットがExpressの約2倍。JSON Schema自動バリデーション・プラグインアーキテクチャ。TypeScript対応◎。マイクロサービス・高負荷APIサービスに最適。知名度の割に性能が優秀。</td>
+  <td class="pair"><b>TypeScript</b>, Prisma, Docker, Redis</td>
+  <td><span class="trend t-up">↑ 上昇</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Hono</span><span class="badge b-hot">🔥 急伸</span></td>
+  <td><span class="tag t-be">TypeScript</span></td>
+  <td><span class="year">2022</span></td>
+  <td><span class="stars s2">急成長</span></td>
+  <td><span class="diff d-lo">低</span></td>
+  <td class="desc">Cloudflare Workers/Edge環境向けに設計された超軽量TSフレームワーク。GitHub Stars 27.6Kで爆発的成長。Node/Deno/Bun/CF Workers全対応。「Edge時代のExpress」。tRPC/OpenAPIとの統合が容易。</td>
+  <td class="pair"><b>Cloudflare Workers</b>, Bun, Deno, tRPC</td>
+  <td><span class="trend t-up2">↑↑ 注目急上昇</span><br><small>Edgeコンピューティング普及でデファクトになる可能性大。</small></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">FastAPI</span><span class="badge b-hot">🔥 急伸</span></td>
+  <td><span class="tag t-be">Python</span></td>
+  <td><span class="year">2018</span></td>
+  <td><span class="stars s4">+5%急伸</span></td>
+  <td><span class="diff d-lo">低</span></td>
+  <td class="desc">Python最速のAPIフレームワーク（Starlette/Pydantic基盤）。型アノテーションから自動でOpenAPI/Swaggerドキュメント生成。非同期対応・LLM APIラッパー開発に最適。GitHub Stars 85K、+30%成長。AI系スタートアップでのデファクト化が進行中。</td>
+  <td class="pair"><b>Python</b>, Pydantic, SQLModel, Claude/OpenAI API</td>
+  <td><span class="trend t-up2">↑↑ AI時代の主役</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Django</span></td>
+  <td><span class="tag t-be">Python</span></td>
+  <td><span class="year">2005</span></td>
+  <td><span class="stars s4">高</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">「バッテリー同梱」のフルスタックFW。ORM・管理画面・認証が標準搭載。大規模Web・CMS・ECサイトに最適。長期運用・エンタープライズに強い。DRF（Django REST Framework）でAPI化も容易。</td>
+  <td class="pair"><b>DRF / HTMX</b>, Celery, PostgreSQL, Redis</td>
+  <td><span class="trend t-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Flask</span></td>
+  <td><span class="tag t-be">Python</span></td>
+  <td><span class="year">2010</span></td>
+  <td><span class="stars s3">高</span></td>
+  <td><span class="diff d-lo">低</span></td>
+  <td class="desc">Pythonのミニマリストマイクロフレームワーク。シンプルで自由度高。プロトタイプ・小規模API・AIモデルサービング入門に最適。FastAPIの台頭で新規採用は減少傾向も、学習用・小規模には依然有効。</td>
+  <td class="pair"><b>Python</b>, SQLAlchemy, Jinja2</td>
+  <td><span class="trend t-dn">↓ FastAPIに移行</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Gin / Echo</span></td>
+  <td><span class="tag t-be">Go</span></td>
+  <td><span class="year">2014 / 2015</span></td>
+  <td><span class="stars s3">中</span></td>
+  <td><span class="diff d-lo">低〜中</span></td>
+  <td class="desc">Go言語の代表的HTTPフレームワーク。高スループット・低レイテンシ・並行処理に強い。マイクロサービス・クラウドネイティブバックエンドに最適。Ginが老舗でEchoはよりモダン。DockerやKubernetesとの親和性高。</td>
+  <td class="pair"><b>Go</b>, gRPC, PostgreSQL, Redis, K8s</td>
+  <td><span class="trend t-up">↑ Go普及と共に上昇</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Spring Boot</span></td>
+  <td><span class="tag t-be">Java</span></td>
+  <td><span class="year">2014</span></td>
+  <td><span class="stars s4">高（JP特に）</span></td>
+  <td><span class="diff d-hi">高</span></td>
+  <td class="desc">Javaエンタープライズ開発の標準FW。大企業・金融・官公庁の基幹システムに不可欠。豊富なライブラリと長期サポート。日本のSIer案件では依然最多言語+FW構成。学習コスト高いが求人数◎。</td>
+  <td class="pair"><b>Java</b>, MyBatis/JPA, Oracle/PostgreSQL, Docker</td>
+  <td><span class="trend t-flat">→ JP市場で安定</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">NestJS</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-be">TypeScript</span></td>
+  <td><span class="year">2017</span></td>
+  <td><span class="stars s3">中〜高</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">Angular風DI・デコレーターベースのNode.js FW。TypeScriptを最大活用。マイクロサービス・GraphQL・gRPC・WebSocketを統一的に扱える。大規模TS+Node.jsバックエンドにおけるベストプラクティス。Angular開発者がバックエンドに移行するルート。</td>
+  <td class="pair"><b>TypeScript</b>, Prisma, GraphQL, RabbitMQ, Redis</td>
+  <td><span class="trend t-up">↑ 大規模TS案件で増加</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Axum</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-be">Rust</span></td>
+  <td><span class="year">2021 / Tokio</span></td>
+  <td><span class="stars s1">ニッチ</span></td>
+  <td><span class="diff d-hi">高</span></td>
+  <td class="desc">Rust製の非同期WebフレームワークでTokio（非同期ランタイム）ベース。C/C++並みのパフォーマンス・メモリ安全性。高頻度取引・組込Linux・セキュリティ重視APIに。Rustが普及するにつれ注目度急上昇中。</td>
+  <td class="pair"><b>Rust</b>, Tokio, SQLx, PostgreSQL</td>
+  <td><span class="trend t-up">↑ Rust普及と連動</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Phoenix (Elixir)</span></td>
+  <td><span class="tag t-be">Elixir</span></td>
+  <td><span class="year">2014</span></td>
+  <td><span class="stars s1">ニッチ</span></td>
+  <td><span class="diff d-mid">中〜高</span></td>
+  <td class="desc">SO Survey 2023でAdmired FW 1位（Reactより上）を記録。Phoenix LiveViewでリアルタイムUI（WebSocket不要）。Discordが初期に採用し200万同時接続を少サーバー数で処理。高耐障害性・高並列処理が求められるチャット・ゲーム・金融系に最強。</td>
+  <td class="pair"><b>Elixir</b>, Ecto, PostgreSQL, BEAM VM</td>
+  <td><span class="trend t-flat">→ ニッチで高評価</span><br><small>「使った人が絶賛するが広まらない」FW代表格。</small></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+
+<!-- ============================================================
+     04. AI / ML フレームワーク
+     ============================================================ -->
+<div class="section-block">
+<div class="section-title">04 / AI・機械学習 フレームワーク</div>
+<div class="section-note">// 2026年以降、全エンジニアの基礎知識化が進む領域。上から順に学習優先度高。</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr>
+    <th>名称</th>
+    <th>カテゴリ</th>
+    <th>開発元</th>
+    <th>登場</th>
+    <th>難易度</th>
+    <th>特徴・用途</th>
+    <th>最強の活用シーン</th>
+    <th>動向</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><span class="fw-name">PyTorch</span><span class="badge b-std">✓ 研究標準</span></td>
+  <td><span class="tag t-ml">DL Framework</span></td>
+  <td><span class="year">Meta (2016)</span></td>
+  <td><span class="stars s5">55%</span><small>（論文シェア）</small></td>
+  <td><span class="diff d-mid">中〜高</span></td>
+  <td class="desc">動的計算グラフ（Eager execution）でデバッグが直感的。研究・実験・カスタムモデル開発のデファクト。PyTorch 2.xでコンパイル最適化対応。Tesla自動運転・Grok・多くの先端LLMがPyTorchで構築。</td>
+  <td class="pair"><b>研究・LLM開発・推論最適化</b><br>ONNX出力でデプロイも可</td>
+  <td><span class="trend t-up">↑ 研究標準</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">TensorFlow / Keras</span></td>
+  <td><span class="tag t-ml">DL Framework</span></td>
+  <td><span class="year">Google (2015)</span></td>
+  <td><span class="stars s4">高</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">エンタープライズ本番環境に強い。TF LiteでモバイルEdge展開、TFXで本番パイプライン構築。Keras 3.0でPyTorch/JAXバックエンド対応しマルチプラットフォーム化。新規研究ではPyTorchに押されるが本番デプロイは今も強い。</td>
+  <td class="pair"><b>本番MLパイプライン・モバイル推論</b><br>TFX, TF Serving, TF Lite</td>
+  <td><span class="trend t-flat">→ 本番は安定</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">JAX</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-ml">ML Research</span></td>
+  <td><span class="year">Google (2018)</span></td>
+  <td><span class="stars s2">研究者層</span></td>
+  <td><span class="diff d-hi">高</span></td>
+  <td class="desc">NumPy互換のXLA最適化ML研究ライブラリ。自動微分（grad）+JIT+vmap+pmap。GPU/TPU並列処理が抜群。DeepMind（AlphaFold2, Gemini研究など）がJAXを主力採用。「Pythonで書いてXLA性能が出る」が強み。今後の最先端研究はJAXが主流になる可能性。</td>
+  <td class="pair"><b>最先端ML研究・TPU活用</b><br>Flax, Optax, Haiku</td>
+  <td><span class="trend t-up">↑ 研究最前線で急拡大</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Hugging Face<br>Transformers</span><span class="badge b-std">✓ NLP標準</span></td>
+  <td><span class="tag t-ai">LLM / NLP</span></td>
+  <td><span class="year">HuggingFace (2019)</span></td>
+  <td><span class="stars s5">高</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">事前学習済みモデルのハブ・ライブラリ。Transformersライブラリで数万モデルをワンライナーロード。BERT・GPT・Llama・Mistral等の使用標準。PyTorch/TF/JAX全対応。AIエンジニアの必修ツール化。</td>
+  <td class="pair"><b>事前学習モデル利用・Fine-tuning</b><br>PEFT, Accelerate, Datasets</td>
+  <td><span class="trend t-up2">↑↑ AI開発の中心地</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">LangChain</span><span class="badge b-std">✓ LLMアプリ標準</span></td>
+  <td><span class="tag t-ai">LLM Orchestration</span></td>
+  <td><span class="year">2022</span></td>
+  <td><span class="stars s4">高</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">LLMアプリ開発の定番FW。チェーン・エージェント・ツール統合・プロンプト管理。Dropbox・Zapier・Instacartが採用。LangGraphで複雑なマルチエージェントを状態グラフで管理。AI開発者の51%が本番エージェントにLangChainを使用。</td>
+  <td class="pair"><b>チャットボット・RAG・AIエージェント開発</b><br>LangGraph, LangSmith（監視）</td>
+  <td><span class="trend t-up">↑ エージェント標準</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">LlamaIndex</span><span class="badge b-hot">🔥 RAG標準化</span></td>
+  <td><span class="tag t-ai">RAG / Data</span></td>
+  <td><span class="year">2022</span></td>
+  <td><span class="stars s4">急成長</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">RAG（検索拡張生成）に特化した設計。多種データソース（PDF・DB・API・HTML）への接続・インデックス化が得意。企業ナレッジベース・ドキュメント検索AIの構築に最適。LangChainより「データと向き合う」作業に強い。</td>
+  <td class="pair"><b>企業内RAG・多ソースデータ統合</b><br>pgvector, Qdrant, Weaviate</td>
+  <td><span class="trend t-up2">↑↑ RAG時代の主役</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Haystack</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-ai">RAG / Search</span></td>
+  <td><span class="year">2020 / deepset</span></td>
+  <td><span class="stars s2">中</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">パイプライン設計ベースのNLPフレームワーク。「検索＋QA」に特化しHuggingFace/OpenAI/ElasticSearch連携が洗練されている。LangChainより構造化されたパイプライン設計。エンタープライズ検索・ドキュメント管理に向く。見えにくいが品質が高い。</td>
+  <td class="pair"><b>エンタープライズ検索システム・QA</b><br>ElasticSearch, OpenSearch</td>
+  <td><span class="trend t-flat">→ ニッチで高品質</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">DSPy</span><span class="badge b-gem">🌟 Gem</span><span class="badge b-new">✦ 新興</span></td>
+  <td><span class="tag t-ai">LLM Optimization</span></td>
+  <td><span class="year">2023 / Stanford</span></td>
+  <td><span class="stars s1">ニッチ</span></td>
+  <td><span class="diff d-hi">高</span></td>
+  <td class="desc">Stanfordが開発したプロンプト自動最適化フレームワーク。「プロンプトをコードで管理・自動改善」という革新的アプローチ。手書きプロンプトの限界を突破。MLの「ハイパーパラメータ最適化」のLLM版。品質が高く注目研究者が急増中。普及すれば「プロンプトエンジニアリング」の概念を変える。</td>
+  <td class="pair"><b>プロンプト自動最適化・LLMパイプライン品質改善</b></td>
+  <td><span class="trend t-new">✦ 研究→実用化フェーズ</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">CrewAI</span><span class="badge b-hot">🔥 急伸</span></td>
+  <td><span class="tag t-ai">Multi-Agent</span></td>
+  <td><span class="year">2023</span></td>
+  <td><span class="stars s2">急成長</span></td>
+  <td><span class="diff d-lo">低〜中</span></td>
+  <td class="desc">複数AIエージェントを「チーム・役割分担」で管理するFW。「Researcher・Writer・Reviewer」等のロールを定義し協調動作。LangGraphより直感的な設計。スタートアップでのマルチエージェント開発導入率が高い。</td>
+  <td class="pair"><b>マルチエージェント・自動化ワークフロー</b></td>
+  <td><span class="trend t-up2">↑↑ マルチエージェントの入門標準</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">scikit-learn</span></td>
+  <td><span class="tag t-ml">ML Library</span></td>
+  <td><span class="year">2007</span></td>
+  <td><span class="stars s4">高</span></td>
+  <td><span class="diff d-lo">低〜中</span></td>
+  <td class="desc">従来型機械学習（分類・回帰・クラスタリング・前処理）のデファクト。ディープラーニング前の表形式データ・業務系AIには今も最適。XGBoostやLightGBMと組み合わせてKaggle・業務モデルに活用。</td>
+  <td class="pair"><b>業務系ML・表形式データ</b><br>XGBoost, LightGBM, Pandas</td>
+  <td><span class="trend t-flat">→ 安定</span></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+
+<!-- ============================================================
+     05. データ・DB ライブラリ
+     ============================================================ -->
+<div class="section-block">
+<div class="section-title">05 / データ・データベース ライブラリ・ORM</div>
+<div class="section-note">// バックエンド・AI開発の縁の下を支える。Pandas・Redis・pgvectorは全エンジニア必修化が進む。</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr>
+    <th>名称</th>
+    <th>言語</th>
+    <th>カテゴリ</th>
+    <th>特徴・用途</th>
+    <th>相性◎ スタック</th>
+    <th>動向</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><span class="fw-name">Pandas</span><span class="badge b-std">✓ データ分析標準</span></td>
+  <td><span class="tag t-be">Python</span></td>
+  <td><span class="tag t-data">Data</span></td>
+  <td class="desc">表形式データ操作のデファクト。CSV・Excel・DBからのデータ加工・集計・可視化前処理に必須。DataAnalyst・MLエンジニアの基礎ツール。</td>
+  <td class="pair"><b>Python</b>, NumPy, Matplotlib, scikit-learn</td>
+  <td><span class="trend t-flat">→ 安定</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Polars</span><span class="badge b-hot">🔥 急伸</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-be">Python / Rust</span></td>
+  <td><span class="tag t-data">Data</span></td>
+  <td class="desc">Rust製のDataFrameライブラリ。Pandasより5〜30倍高速。メモリ効率も優秀。遅延評価（Lazy API）で大規模データに対応。「PandasをやめてPolarsに乗り換えた」という事例が急増中。大規模データ処理の新標準候補。</td>
+  <td class="pair"><b>Python</b>, DuckDB, Apache Arrow</td>
+  <td><span class="trend t-up2">↑↑ Pandas代替として急伸</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">DuckDB</span><span class="badge b-gem">🌟 Gem</span><span class="badge b-hot">🔥 注目</span></td>
+  <td><span class="tag t-be">Python / SQL</span></td>
+  <td><span class="tag t-data">Analytical DB</span></td>
+  <td class="desc">組み込みOLAP（分析）データベース。SQLiteのような手軽さで列指向高速分析クエリが実行可能。ファイル（CSV・Parquet・JSON）を直接SQLで叩ける。Pandasの1000倍速いケースも。BI・データパイプライン・ローカル分析に革命的。知名度の割に圧倒的な品質。</td>
+  <td class="pair"><b>Python</b>, Polars, Apache Arrow, Parquet</td>
+  <td><span class="trend t-up2">↑↑ データ分析界隈で急注目</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Prisma</span><span class="badge b-std">✓ TS ORM標準</span></td>
+  <td><span class="tag t-be">TypeScript</span></td>
+  <td><span class="tag t-db">ORM</span></td>
+  <td class="desc">TypeScriptのORM/スキーマ管理ツール。スキーマ定義→型自動生成で型安全なDBアクセス。マイグレーション管理◎。Next.js + Prisma + PostgreSQLが現代TS開発の黄金トリオ。</td>
+  <td class="pair"><b>TypeScript</b>, Next.js, PostgreSQL, Supabase</td>
+  <td><span class="trend t-up">↑ TS開発のデファクト</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Drizzle ORM</span><span class="badge b-hot">🔥 急伸</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-be">TypeScript</span></td>
+  <td><span class="tag t-db">ORM</span></td>
+  <td class="desc">「SQL風のTypeScript ORM」。Prismaより軽量・高速でEdge環境（Cloudflare D1等）に対応。SQLに近い記述で細かい制御が可能。Prismaの「重さ・遅さ」への不満からの移行が増加中。Bunとの相性も◎。</td>
+  <td class="pair"><b>TypeScript</b>, Cloudflare D1, Bun, Hono</td>
+  <td><span class="trend t-up2">↑↑ Prismaの強力な対抗馬</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">SQLAlchemy</span></td>
+  <td><span class="tag t-be">Python</span></td>
+  <td><span class="tag t-db">ORM</span></td>
+  <td class="desc">Python最古参のORM。Core（SQL構築）とORM（マッピング）の2層設計。大規模・複雑なクエリに強い。FastAPI + SQLModelとの組み合わせが現代標準。</td>
+  <td class="pair"><b>Python</b>, FastAPI, SQLModel, PostgreSQL</td>
+  <td><span class="trend t-flat">→ Python DB操作の標準</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Redis</span></td>
+  <td><span class="tag t-be">多言語</span></td>
+  <td><span class="tag t-db">Cache / KV</span></td>
+  <td class="desc">インメモリKVストア。SO Survey 2025で+8%の大幅増。キャッシュ・セッション・リアルタイムランキング・Pub/Sub・LLMの会話履歴保存に必須。Upstash（サーバーレスRedis）でEdge対応も容易。</td>
+  <td class="pair"><b>全スタック対応</b>, Upstash, BullMQ（ジョブキュー）</td>
+  <td><span class="trend t-up2">↑↑ SO Survey +8%急伸</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">pgvector</span><span class="badge b-hot">🔥 AI時代の必需品</span></td>
+  <td><span class="tag t-be">PostgreSQL</span></td>
+  <td><span class="tag t-ai">Vector DB</span></td>
+  <td class="desc">PostgreSQL拡張でベクトル検索を実現。既存PGインフラにRAG検索を追加できる。Supabase/Neonに標準搭載。「専用ベクトルDB不要でRDBと一緒に管理できる」という実用性でAIスタートアップで急採用。</td>
+  <td class="pair"><b>PostgreSQL</b>, Supabase, LlamaIndex, LangChain</td>
+  <td><span class="trend t-up2">↑↑ RAG開発の定番に</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Qdrant</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-be">Rust製</span></td>
+  <td><span class="tag t-ai">Vector DB</span></td>
+  <td class="desc">Rust製の高性能ベクトルデータベース。pgvectorより大規模・高精度検索に向く。フィルタリング性能が業界最高クラス。OSS版+クラウド版あり。大規模RAGシステム・類似検索エンジンに最適。Weaviate・Pineconeと並ぶ専用VDB三強の一角。</td>
+  <td class="pair"><b>Python / Rust</b>, FastAPI, LlamaIndex</td>
+  <td><span class="trend t-up">↑ 大規模AI用途で台頭</span></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+
+<!-- ============================================================
+     06. CSS・スタイリング
+     ============================================================ -->
+<div class="section-block">
+<div class="section-title">06 / CSS・スタイリング フレームワーク</div>
+<div class="section-note">// フロントエンド開発に不可欠。Tailwindが急速にデファクト化しつつある。</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr>
+    <th>名称</th>
+    <th>アプローチ</th>
+    <th>登場</th>
+    <th>利用率</th>
+    <th>難易度</th>
+    <th>特徴・用途</th>
+    <th>動向</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><span class="fw-name">Tailwind CSS</span><span class="badge b-std">✓ 急速標準化</span></td>
+  <td><span class="tag t-css">Utility-First</span></td>
+  <td><span class="year">2017</span></td>
+  <td><span class="stars s5">トップ</span></td>
+  <td><span class="diff d-lo">低</span></td>
+  <td class="desc">ユーティリティクラスをHTMLに直接記述。カスタムCSSを書かずにデザイン完結。v4でCSS変数ベースの設定に刷新し高速化。AI（v0, Bolt.new）との相性が最高で「AIが生成するCSS」の標準になりつつある。Next.js/Viteとのデフォルト統合◎。</td>
+  <td><span class="trend t-up2">↑↑ AIとの相性でさらに加速</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Bootstrap</span></td>
+  <td><span class="tag t-css">Component</span></td>
+  <td><span class="year">2011 / Twitter</span></td>
+  <td><span class="stars s4">高（レガシー多）</span></td>
+  <td><span class="diff d-lo">低</span></td>
+  <td class="desc">UIコンポーネント集。管理画面・社内ツール・SIer案件でいまだ現役。Bootstrap 5でjQuery依存廃止。Tailwindに押されているが「とりあえず使える」需要は残存。</td>
+  <td><span class="trend t-dn">↓ 緩やかに縮小</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">shadcn/ui</span><span class="badge b-hot">🔥 急伸</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-css">Component</span></td>
+  <td><span class="year">2023</span></td>
+  <td><span class="stars s3">急増中</span></td>
+  <td><span class="diff d-lo">低</span></td>
+  <td class="desc">「コピーするUIコンポーネントライブラリ」という新概念。インストールではなくソースコードをプロジェクトにコピーして完全カスタマイズ可。Radix UI + Tailwindベース。アクセシビリティ◎。v0.devとの統合でAIコード生成の標準コンポーネントに。</td>
+  <td><span class="trend t-up2">↑↑ 2023〜急速普及・今後標準化</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Panda CSS</span><span class="badge b-new">✦ 新興</span></td>
+  <td><span class="tag t-css">Zero-runtime</span></td>
+  <td><span class="year">2023 / Chakra UI</span></td>
+  <td><span class="stars s1">新興</span></td>
+  <td><span class="diff d-mid">中</span></td>
+  <td class="desc">CSS-in-JS + ゼロランタイム + TypeScript完全型安全。ビルド時にCSSを生成、ランタイムオーバーヘッドなし。TailwindのアプローチとCSS-in-JSのDXを融合。Chakra UIの後継として開発。型安全なスタイリングを求める大規模TS開発向き。</td>
+  <td><span class="trend t-new">✦ 注目新興</span></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+
+<!-- ============================================================
+     07. テスト・品質 / ビルドツール / ランタイム
+     ============================================================ -->
+<div class="section-block">
+<div class="section-title">07 / テスト・ビルドツール・ランタイム</div>
+<div class="section-note">// 開発効率に直結。Bun・Viteの台頭で開発体験が革新されつつある。</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr>
+    <th>名称</th>
+    <th>カテゴリ</th>
+    <th>言語</th>
+    <th>特徴・用途</th>
+    <th>相性◎</th>
+    <th>動向</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><span class="fw-name">Vite</span><span class="badge b-std">✓ ビルド標準</span></td>
+  <td><span class="tag t-devops">Build Tool</span></td>
+  <td><span class="tag t-be">JS/TS</span></td>
+  <td class="desc">ESモジュールベースの超高速開発サーバー。WebpackやCreate React Appを事実上置き換え。起動が50〜100倍速い。Vue/React/Svelte全対応。現代JS開発のデファクトビルドツール。</td>
+  <td class="pair"><b>Vue・React・Svelte・SolidJS</b></td>
+  <td><span class="trend t-up">↑↑ デファクト化完了</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Bun</span><span class="badge b-hot">🔥 急伸</span><br><small>* Anthropic買収（2025/12）</small></td>
+  <td><span class="tag t-devops">Runtime</span></td>
+  <td><span class="tag t-be">JS/TS</span></td>
+  <td class="desc">Zig製の超高速JS/TSランタイム。Runtime + Bundler + Test Runner + Package Managerの4役を一体化。Node.jsより3〜5倍高速。TypeScriptをそのまま実行可能。GitHubStars 75K+、+48%成長。本番での採用事例も増加中。</td>
+  <td class="pair"><b>Hono, Drizzle</b>, TypeScript</td>
+  <td><span class="trend t-up2">↑↑ Node.jsの次の主役候補</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Vitest</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-test">Test</span></td>
+  <td><span class="tag t-be">JS/TS</span></td>
+  <td class="desc">Viteベースの高速テストFW。JestのAPI互換で移行が容易。ESMネイティブ対応。「JestからVitestへ」の流れが加速中。Viteを使っているプロジェクトではVitest一択になりつつある。</td>
+  <td class="pair"><b>Vite</b>, TypeScript, React, Vue</td>
+  <td><span class="trend t-up">↑ Jest置き換え加速</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Playwright</span><span class="badge b-std">✓ E2E標準</span></td>
+  <td><span class="tag t-test">E2E Test</span></td>
+  <td><span class="tag t-be">多言語</span></td>
+  <td class="desc">Microsoft製E2Eテストフレームワーク。Chromium/Firefox/WebKit対応。Cypressより高速・多言語対応（JS/TS/Python/Java/C#）。クロスブラウザテスト・スクレイピング・クローリングにも利用可。</td>
+  <td class="pair"><b>TypeScript / Python</b>, Next.js, Django</td>
+  <td><span class="trend t-up">↑ Cypress置き換え進行</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">tRPC</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-be">API Layer</span></td>
+  <td><span class="tag t-be">TypeScript</span></td>
+  <td class="desc">TypeScript完全型安全のAPI通信フレームワーク。スキーマ定義不要でフロント↔バックエンド間の型が自動同期。REST/GraphQLの複雑さを排除。T3 Stack（Next.js + tRPC + Tailwind + Prisma）の中核として普及。</td>
+  <td class="pair"><b>Next.js</b>, Prisma, Hono</td>
+  <td><span class="trend t-up">↑ フルスタックTS開発で普及</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Effect-TS</span><span class="badge b-gem">🌟 Gem</span><span class="badge b-new">✦ 注目新興</span></td>
+  <td><span class="tag t-be">TypeScript FP</span></td>
+  <td><span class="tag t-be">TypeScript</span></td>
+  <td class="desc">関数型プログラミングをTSに持ち込んだライブラリ。エラーハンドリング・非同期処理・依存注入を型安全に。「TypeScriptのHaskell」とも称される。複雑なビジネスロジックを安全に記述できる。まだ知名度低いが品質・設計思想が優秀。大規模TS開発のベストプラクティスを変える可能性。</td>
+  <td class="pair"><b>TypeScript</b>, Node.js, Bun</td>
+  <td><span class="trend t-new">✦ 注目新興・品質が高い</span></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+
+<!-- ============================================================
+     08. モバイル・クロスプラットフォーム
+     ============================================================ -->
+<div class="section-block">
+<div class="section-title">08 / モバイル・クロスプラットフォーム フレームワーク</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr>
+    <th>名称</th>
+    <th>言語</th>
+    <th>対応OS</th>
+    <th>特徴</th>
+    <th>用途</th>
+    <th>動向</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><span class="fw-name">React Native</span><span class="badge b-std">✓ JS製標準</span></td>
+  <td><span class="tag t-mob">React/JS</span></td>
+  <td>iOS / Android</td>
+  <td class="desc">JSXでネイティブUIを記述。Webエンジニアがモバイル参入に最適。New Architecture（Fabric + JSI）でパフォーマンス大幅改善。Expo Routerで開発効率↑。</td>
+  <td>JS/TS主力チームのモバイルアプリ</td>
+  <td><span class="trend t-up">↑ New Architecture普及</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Flutter</span><span class="badge b-hot">🔥 拡大中</span></td>
+  <td><span class="tag t-mob">Dart</span></td>
+  <td>iOS/Android/Web/Desktop</td>
+  <td class="desc">Google製。独自レンダリングエンジン（Skia→Impeller）で全OS一貫したUI。iOS/Android/Web/Windowsを単一コードで開発。GitHub Stars 165K。スタートアップでの採用増加。</td>
+  <td>フルクロスプラットフォーム・高品質UI</td>
+  <td><span class="trend t-up2">↑↑ クロスプラットフォームの主流候補</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Expo</span></td>
+  <td><span class="tag t-mob">React Native</span></td>
+  <td>iOS / Android / Web</td>
+  <td class="desc">React Nativeの開発プラットフォーム。OTA更新・プッシュ通知・認証等をSaaS提供。ネイティブコードなしでアプリを開発〜公開できる。Expo Router（ファイルベース）が急速に普及。</td>
+  <td>小〜中規模RNアプリ・MVP開発</td>
+  <td><span class="trend t-up">↑ Expo Router普及で標準化</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Tauri</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-mob">Rust+JS</span></td>
+  <td>Windows/Mac/Linux</td>
+  <td class="desc">Electron代替のデスクトップアプリFW。Rust製バックエンド + WebView フロントエンド。ElectronよりバンドルサイズがS（数MB vs 100MB+）・メモリ効率が優秀。VS Code的なアプリをRust+JSで作れる。注目度上昇中。</td>
+  <td>軽量デスクトップアプリ・社内ツール</td>
+  <td><span class="trend t-up">↑ Electron代替として急注目</span></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+
+<!-- ============================================================
+     09. インフラ・DevOps
+     ============================================================ -->
+<div class="section-block">
+<div class="section-title">09 / インフラ・DevOps・クラウド</div>
+<div class="section-note">// Docker利用率+17pt（SO Survey最大上昇）。IaCとObservabilityが2026年の重要トレンド。</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr>
+    <th>名称</th>
+    <th>カテゴリ</th>
+    <th>特徴・用途</th>
+    <th>相性◎</th>
+    <th>動向</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><span class="fw-name">Docker</span><span class="badge b-std">✓ 必須ツール</span></td>
+  <td><span class="tag t-devops">Container</span></td>
+  <td class="desc">コンテナ化の標準。SO Survey 2025で+17pt（全技術中最大上昇）。「Works on my machine問題」を根絶。開発環境・CI/CD・本番全ステージで必須。</td>
+  <td class="pair"><b>全スタック</b>, Docker Compose, GitHub Actions</td>
+  <td><span class="trend t-up2">↑↑ ほぼ全開発者が使用</span></td>
+</tr>
+
+<tr>
+  <td><span class="fw-name">Kubernetes (K8s)</span></td>
+  <td><span class="tag t-devops">Orchestration</span></td>
+  <td class="desc">コンテナオーケストレーションの標準。大規模マイクロサービス本番環境に必須。学習コスト高いが高い需要。EKS(AWS)・GKE(GCP)・AKS(Azure)で管理されるケースが多い。</td>
+  <td class="pair"><b>Docker</b>, Helm, Istio, Prometheus</td>
+  <td><span class="trend t-flat">→ 大規模標準として安定</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Terraform / OpenTofu</span></td>
+  <td><span class="tag t-devops">IaC</span></td>
+  <td class="desc">Infrastructure as Code（IaC）の標準。AWSやGCP等のインフラをコードで管理。Terraform（HashiCorp）がライセンス変更しOSS fork「OpenTofu」が誕生。DevOps・SRE職では必須スキル。</td>
+  <td class="pair"><b>AWS / GCP / Azure</b>, GitHub Actions</td>
+  <td><span class="trend t-up">↑ IaCは全開発者必修化傾向</span></td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Temporal</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-devops">Workflow</span></td>
+  <td class="desc">信頼性の高い長時間実行ワークフロー管理フレームワーク。「失敗しても自動リトライ・状態を永続化」するコードが書けるのが強み。マイクロサービス間の複雑な処理フロー・定期バッチ・AIエージェントのステップ管理に最強。Uber・Netflix・Shopify等が採用。まだ知名度が低いが使った開発者の評価が高い。</td>
+  <td class="pair"><b>Go / Python / TypeScript</b>, Docker, K8s</td>
+  <td><span class="trend t-up">↑ 複雑ワークフロー・AI処理に注目</span></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+
+<!-- ============================================================
+     10. 今後注目のフレームワーク・ライブラリ
+     ============================================================ -->
+<div class="section-block">
+<div class="section-title">10 / 今後注目・まだ主流ではないが見逃せないもの</div>
+<div class="section-note">// 現時点では知名度・求人数ともに少ないが、技術的革新性・設計の優秀さ・成長速度が顕著なもの</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr>
+    <th>名称</th>
+    <th>カテゴリ</th>
+    <th>注目ポイント</th>
+    <th>時間軸</th>
+    <th>関連</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Mitosis</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-fe">Framework Bridge</span></td>
+  <td class="desc">「コンポーネントをどのFWにも出力できる」革新的発想。JSXサブセットで記述→React/Vue/Svelte/Angular/Web Components等にコンパイル。FigmaからのUI変換も対応。「FW乱立問題の根本解決」という視点が秀逸。Qwikの開発チームが制作。</td>
+  <td><span class="year">2〜4年</span></td>
+  <td>React, Vue, Svelte, Qwik</td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Mastra</span><span class="badge b-new">✦ 新興</span></td>
+  <td><span class="tag t-ai">AI Agent FW</span></td>
+  <td class="desc">TypeScript製AIエージェントフレームワーク。ワークフロー・メモリ・ツール統合・評価が一体。Next.js的な感覚でAIエージェントを構築できる設計。2024年末登場でGitHubスター急増中。LangChainの「重さ」に不満なTS開発者に刺さる。</td>
+  <td><span class="year">今〜2年</span></td>
+  <td>TypeScript, Next.js, Claude API</td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Electric SQL</span><span class="badge b-new">✦ 新興</span></td>
+  <td><span class="tag t-db">Local-first DB</span></td>
+  <td class="desc">「Local-first」アーキテクチャを実現するPostgreSQL同期FW。クライアント側にSQLiteを持ち、PostgreSQLとリアルタイム同期。オフライン動作・リアルタイム協調編集が容易に。Notion/Linear的な体験をOSSで構築できる可能性がある。</td>
+  <td><span class="year">2〜3年</span></td>
+  <td>PostgreSQL, SQLite, React</td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Val Town</span><span class="badge b-new">✦ 新概念</span></td>
+  <td><span class="tag t-be">Serverless FW</span></td>
+  <td class="desc">「社会的なコードホスティング」。ブラウザ上でJSコードを書いてデプロイが即完了。他ユーザーのコードを参照・フォークして組み合わせ可能。サーバーレス関数・CronJobをGitHub Gist感覚で管理。AIコード生成との相性が抜群。新しい開発体験の提案として注目。</td>
+  <td><span class="year">2〜4年</span></td>
+  <td>TypeScript, Deno</td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Gleam + Lustre</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-fe">Full-stack FW</span></td>
+  <td class="desc">型安全な関数型言語GleamのWebフレームワーク「Lustre」。ElmライクなMVU構造でフロント・バックエンドを同言語で記述可能。BEAM VMの信頼性+型安全性。スタートアップで静かに採用事例が増加。「使ったら離れられない」とファンが多い隠れた逸品。</td>
+  <td><span class="year">3〜5年</span></td>
+  <td>Gleam, Erlang VM, BEAM</td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Rivet (game backend)</span><span class="badge b-new">✦ 新興</span></td>
+  <td><span class="tag t-rt">Game Backend</span></td>
+  <td class="desc">ゲームバックエンド特化のOSSプラットフォーム。マッチメイキング・リアルタイム通信・サーバーレスアクター・ロビー管理を提供。「ゲーム開発者がインフラを気にしなくていい」というコンセプト。小規模ゲームスタートアップへの福音になる可能性。</td>
+  <td><span class="year">2〜4年</span></td>
+  <td>Rust, Game Dev, TypeScript</td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Weights & Biases (W&B)</span></td>
+  <td><span class="tag t-ml">MLOps</span></td>
+  <td class="desc">ML実験管理・モデルバージョン管理・可視化ダッシュボード。「MLのGitHub」的役割。本番AIサービス運用に不可欠なMLOpsの中心ツール。AI開発チームでは使わないほうが珍しいレベルになりつつあるが、一般知名度はまだ低い。</td>
+  <td><span class="year">今〜継続</span></td>
+  <td>Python, PyTorch, HuggingFace</td>
+</tr>
+
+<tr class="gem-row">
+  <td><span class="fw-name">Nitro / H3</span><span class="badge b-gem">🌟 Gem</span></td>
+  <td><span class="tag t-be">Universal Server</span></td>
+  <td class="desc">Nuxt.js開発チームが作るユニバーサルサーバーエンジン（Nitro）とHTTPフレームワーク（H3）。Node/Deno/Bun/Cloudflare Workers全対応。Next.jsのVercel依存から自由になりたい場合の選択肢。「どのランタイムでも動く」設計が今後のEdge時代に響く。</td>
+  <td><span class="year">今〜3年</span></td>
+  <td>Nuxt.js, SvelteKit, Hono</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+
+<div class="source-line">
+  Sources: Stack Overflow Developer Survey 2025 (49,000+) · State of JS 2024 · GitHub Stars / Octoverse 2024〜2025 · JetBrains Developer Ecosystem Report 2024 ·
+  npm weekly downloads 2025 · Statista Web Frameworks Report 2025 · Framework-specific official docs & release notes<br><br>by pien 2026
+</div>
+
+</body>
+</html>

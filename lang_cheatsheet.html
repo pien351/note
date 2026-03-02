@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>プログラミング言語チート表 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
+  :root {
+    --bg: #f5f7fa;
+    --surface: #e8ecf1;
+    --surface2: #dfe4eb;
+    --border: #c8cdd8;
+    --accent: #008060;
+    --accent2: #b37800;
+    --accent3: #1a6fbf;
+    --accent4: #d03040;
+    --text: #2a2f3d;
+    --text-dim: #6b748a;
+    --text-bright: #30363e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 24px 20px 60px;
+  }
+
+  header {
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 16px;
+    margin-bottom: 32px;
+  }
+
+  header h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  header p {
+    color: var(--text-dim);
+    font-size: 11px;
+    margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent2);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    /* border-left: 3px solid var(--accent2);
+    padding-left: 10px; */
+    margin: 36px 0 12px;
+  }
+
+  .section-note {
+    color: var(--text-dim);
+    font-size: 11px;
+    margin-bottom: 14px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+  }
+
+  th {
+    background: var(--surface2);
+    /* color: var(--accent); */
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #d8dce6;
+    vertical-align: top;
+    font-size: 12px;
+  }
+  tr:hover td {
+    background: rgba(0,128,96,0.05);
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  .lang-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--text-bright);
+    white-space: nowrap;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin: 1px 2px 1px 0;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+  }
+
+  .tag-web    { background: #d6e8f8; color: #1a5a9c; border: 1px solid #b8d4f0; }
+  .tag-ai     { background: #d0f0e4; color: #006848; border: 1px solid #a8e0c8; }
+  .tag-sys    { background: #f0e0c8; color: #8a5a10; border: 1px solid #e0cc9c; }
+  .tag-mobile { background: #e8d8f0; color: #6a3080; border: 1px solid #d4b8e4; }
+  .tag-data   { background: #d0eef0; color: #107080; border: 1px solid #a8dce0; }
+  .tag-game   { background: #f0d0d0; color: #a03030; border: 1px solid #e4a8a8; }
+  .tag-biz    { background: #e8e4c8; color: #6a6010; border: 1px solid #d4cc98; }
+  .tag-auto   { background: #d0e0f0; color: #305898; border: 1px solid #a8c8e0; }
+  .tag-cloud  { background: #d0e4f0; color: #1870a8; border: 1px solid #a0ccec; }
+  .tag-embed  { background: #f0eac8; color: #7a6a10; border: 1px solid #e0d498; }
+
+  .demand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .d5 { color: #008060; }
+  .d4 { color: #2a9070; }
+  .d3 { color: #b37800; }
+  .d2 { color: #c85a10; }
+  .d1 { color: #6b748a; }
+
+  .diff {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .diff-high { color: #d03040; }
+  .diff-mid  { color: #b37800; }
+  .diff-low  { color: #008060; }
+
+  .trend-up   { color: #008060; font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .trend-flat { color: #6b748a; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .trend-down { color: #d03040; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .trend-new  { color: #1a6fbf; font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+
+  .desc {  line-height: 1.5; max-width: 400px; }
+
+  /* Stack table */
+  .stack-table table { min-width: 800px; }
+
+  .stack-category {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent3);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .stack-tech {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-bright);
+  }
+
+  .star { color: var(--accent); font-size: 10px; }
+
+  /* Future table */
+  .future-badge {
+    display: inline-block;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+  .fb-emerging { background: #d6e8f8; color: #1a5a9c; border: 1px solid #b0cce8; }
+  .fb-watch    { background: #d0f0e4; color: #008060; border: 1px solid #a8e0c8; }
+  .fb-research { background: #f0e0c8; color: #b37800; border: 1px solid #e0cc9c; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+  }
+
+  .source-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+  }
+
+  .th-group {
+    background: #e8ecf1;
+    color: var(--text-dim);
+    font-size: 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+  }
+
+  .col-jp { border-left: 1px solid #c8cdd8; }
+
+  .note-inline {
+    font-size: 10px;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>// PROGRAMMING LANGUAGE CHEAT SHEET 2026</h1>
+  <p>// Sources: TIOBE Index 2025–2026 · Stack Overflow Survey 2025 · GitHub Octoverse 2024 · paiza 2025 · 日経xTECH 2025 · レバテックキャリア 2026.01</p>
+</header>
+
+<!-- ========== SECTION 1: MAIN LANGUAGE TABLE ========== -->
+<div class="section-title">01 / 主要言語チート表</div>
+<div class="section-note">// 需要: ★★★★★ 非常に高 → ★☆☆☆☆ 低  |  動向: ↑上昇 → 安定 ↓下降 ✦新興</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="tag tag-web">Web</span><span>Webアプリ</span></div>
+  <div class="legend-item"><span class="tag tag-ai">AI</span><span>AI/ML</span></div>
+  <div class="legend-item"><span class="tag tag-sys">Sys</span><span>システム/組込</span></div>
+  <div class="legend-item"><span class="tag tag-mobile">Mobile</span><span>モバイル</span></div>
+  <div class="legend-item"><span class="tag tag-data">Data</span><span>データ分析</span></div>
+  <div class="legend-item"><span class="tag tag-game">Game</span><span>ゲーム</span></div>
+  <div class="legend-item"><span class="tag tag-biz">Biz</span><span>業務システム</span></div>
+  <div class="legend-item"><span class="tag tag-auto">Auto</span><span>自動化</span></div>
+  <div class="legend-item"><span class="tag tag-cloud">Cloud</span><span>クラウド</span></div>
+  <div class="legend-item"><span class="tag tag-embed">Embed</span><span>組込/IoT</span></div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr>
+    <th>言語</th>
+    <th>領域</th>
+    <th>解説・特徴（最新）</th>
+    <th>難易度</th>
+    <th>需要（世界）</th>
+    <th>需要（日本）</th>
+    <th>動向（世界）</th>
+    <th>動向（日本）</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><span class="lang-name">Python</span></td>
+  <td>
+    <span class="tag tag-ai">AI</span>
+    <span class="tag tag-web">Web</span>
+    <span class="tag tag-data">Data</span>
+    <span class="tag tag-auto">Auto</span>
+  </td>
+  <td class="desc">2025年TIOBE 1位（21.81%）。GitHub初の1位奪取(2024)。AI/ML需要でさらに急伸。FastAPI/Django/LangChain等エコシステム充実。初心者〜専門家まで幅広い。</td>
+  <td><span class="diff diff-low">低〜中</span></td>
+  <td><span class="demand d5">★★★★★</span></td>
+  <td><span class="demand d4">★★★★☆</span></td>
+  <td><span class="trend-up">↑↑ 急伸</span></td>
+  <td><span class="trend-up">↑ 上昇</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">JavaScript</span></td>
+  <td>
+    <span class="tag tag-web">Web</span>
+    <span class="tag tag-auto">Auto</span>
+  </td>
+  <td class="desc">Web唯一のフロントエンド言語。Node.jsでバックエンドも可。Pythonに首位を譲るも実務利用64.6%で依然最大勢力。React/Vue/Next.js等フレームワーク必須。</td>
+  <td><span class="diff diff-low">低〜中</span></td>
+  <td><span class="demand d5">★★★★★</span></td>
+  <td><span class="demand d5">★★★★★</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">TypeScript</span></td>
+  <td>
+    <span class="tag tag-web">Web</span>
+  </td>
+  <td class="desc">MS製、JSの型付き上位互換。採用率43.6%と急拡大。大規模開発標準化が進み「JSはTSで書く」が新常識に。Next.js/Nuxt.jsとの相性◎。</td>
+  <td><span class="diff diff-low">低〜中</span></td>
+  <td><span class="demand d5">★★★★★</span></td>
+  <td><span class="demand d4">★★★★☆</span></td>
+  <td><span class="trend-up">↑↑ 急伸</span></td>
+  <td><span class="trend-up">↑ 上昇</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">Java</span></td>
+  <td>
+    <span class="tag tag-biz">Biz</span>
+    <span class="tag tag-web">Web</span>
+    <span class="tag tag-mobile">Mobile</span>
+  </td>
+  <td class="desc">TIOBE 4位、日本求人数1位。大企業・銀行・官公庁のシステムで不動の地位。Spring Boot主流。新興開発者の選好度低下傾向も既存資産の多さで当面需要継続。</td>
+  <td><span class="diff diff-high">高</span></td>
+  <td><span class="demand d4">★★★★☆</span></td>
+  <td><span class="demand d5">★★★★★</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">C++</span></td>
+  <td>
+    <span class="tag tag-sys">Sys</span>
+    <span class="tag tag-game">Game</span>
+    <span class="tag tag-embed">Embed</span>
+  </td>
+  <td class="desc">TIOBE 3位（8.55%）。ゲームエンジン(UE5)、自動車・AI推論エンジン等で不動。日本でも組込/IoT需要高。日経xTECH調査で利用者数1位（440人中136人）。</td>
+  <td><span class="diff diff-high">高</span></td>
+  <td><span class="demand d4">★★★★☆</span></td>
+  <td><span class="demand d4">★★★★☆</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">C言語</span></td>
+  <td>
+    <span class="tag tag-sys">Sys</span>
+    <span class="tag tag-embed">Embed</span>
+  </td>
+  <td class="desc">TIOBE 2位（11.05%）。組込・OS・ファームウェア開発の基盤。Rustに押されつつも組込現場では依然主役。メモリ管理が難解で習得難易度高め。</td>
+  <td><span class="diff diff-high">高</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="trend-down">↓ 微減</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">C#</span></td>
+  <td>
+    <span class="tag tag-game">Game</span>
+    <span class="tag tag-biz">Biz</span>
+    <span class="tag tag-mobile">Mobile</span>
+  </td>
+  <td class="desc">Unity標準言語として需要継続。Windowsアプリ・企業系開発で活用。開発者評価（Admired）64.1%と高評価。クロスプラットフォーム開発(MAUI)も拡大。</td>
+  <td><span class="diff diff-mid">中</span></td>
+  <td><span class="demand d4">★★★★☆</span></td>
+  <td><span class="demand d4">★★★★☆</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">Go（Golang）</span></td>
+  <td>
+    <span class="tag tag-web">Web</span>
+    <span class="tag tag-cloud">Cloud</span>
+  </td>
+  <td class="desc">SO 2025上位、paiza年収1位（723万円）。DockerやKubernetesの開発言語。クラウドネイティブ・マイクロサービスで急拡大中。</td>
+  <td><span class="diff diff-low">低〜中</span></td>
+  <td><span class="demand d4">★★★★☆</span></td>
+  <td><span class="demand d4">★★★★☆</span></td>
+  <td><span class="trend-up">↑↑ 急伸</span></td>
+  <td><span class="trend-up">↑↑ 急伸</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">Rust</span></td>
+  <td>
+    <span class="tag tag-sys">Sys</span>
+    <span class="tag tag-cloud">Cloud</span>
+    <span class="tag tag-embed">Embed</span>
+  </td>
+  <td class="desc">SO Surveyで9年連続「Loved/Admired」カテゴリ1位。利用率9〜12%まで成長。Microsoft/Google/AmazonがC++代替として採用拡大。メモリ安全でWebAssemblyとの相性◎。日本ではRust学習意欲急上昇（日経xTECH）。</td>
+  <td><span class="diff diff-high">高</span></td>
+  <td><span class="demand d4">★★★★☆</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="trend-up">↑↑ 急伸</span></td>
+  <td><span class="trend-up">↑ 上昇</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">PHP</span></td>
+  <td>
+    <span class="tag tag-web">Web</span>
+  </td>
+  <td class="desc">WordPress等CMS開発で根強い需要。RedMonk 4位と依然有力。2024年TIOBEトップ10外に。Laravel等モダン化で延命中。フリーランス案件多め。</td>
+  <td><span class="diff diff-low">低</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="trend-down">↓ 下降</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">Ruby</span></td>
+  <td>
+    <span class="tag tag-web">Web</span>
+  </td>
+  <td class="desc">Rails中心にスタートアップで人気継続。日本語ドキュメント豊富。TIOBE・RedMonkで順位下落傾向。Pythonへの移行増加。求人は減少傾向も高単価案件残存。</td>
+  <td><span class="diff diff-low">低</span></td>
+  <td><span class="demand d2">★★☆☆☆</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="trend-down">↓ 下降</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">Swift</span></td>
+  <td>
+    <span class="tag tag-mobile">Mobile</span>
+  </td>
+  <td class="desc">iOS/macOS唯一の公式言語。Apple製品普及率から需要安定。TIOBE上位20位から下落傾向。穴場言語（求人多く応募少）としてpaiza調査2位。</td>
+  <td><span class="diff diff-low">低〜中</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="trend-down">↓ 微減</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">Kotlin</span></td>
+  <td>
+    <span class="tag tag-mobile">Mobile</span>
+    <span class="tag tag-web">Web</span>
+  </td>
+  <td class="desc">Android公式言語。Java互換で移行しやすい。Kotlin Multiplatformでクロスプラットフォーム展開も拡大。穴場言語1位（paiza調査）。</td>
+  <td><span class="diff diff-low">低〜中</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">SQL</span></td>
+  <td>
+    <span class="tag tag-data">Data</span>
+    <span class="tag tag-biz">Biz</span>
+    <span class="tag tag-ai">AI</span>
+  </td>
+  <td class="desc">データ操作の共通語。AI時代に伴うデータ需要で再評価。BI・分析・RAG構築に必須。エンジニアだけでなくデータアナリスト・ビジネス職にも必須スキル化。</td>
+  <td><span class="diff diff-low">低〜中</span></td>
+  <td><span class="demand d5">★★★★★</span></td>
+  <td><span class="demand d5">★★★★★</span></td>
+  <td><span class="trend-up">↑ 需要増</span></td>
+  <td><span class="trend-up">↑ 需要増</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">R言語</span></td>
+  <td>
+    <span class="tag tag-data">Data</span>
+    <span class="tag tag-ai">AI</span>
+  </td>
+  <td class="desc">統計解析・データ科学特化。2025年TIOBEトップ10に再登場。Pythonに押されていたが数理統計分野で再評価。医療・学術・金融での需要継続。</td>
+  <td><span class="diff diff-mid">中</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="demand d2">★★☆☆☆</span></td>
+  <td><span class="trend-up">↑ 復調</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">Dart / Flutter</span></td>
+  <td>
+    <span class="tag tag-mobile">Mobile</span>
+    <span class="tag tag-web">Web</span>
+  </td>
+  <td class="desc">Googleが開発。FlutterフレームワークでiOS/Android/Web/Desktop一括開発可能。クロスプラットフォーム需要増でスタートアップ採用増加中。</td>
+  <td><span class="diff diff-low">低〜中</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="trend-up">↑ 上昇</span></td>
+  <td><span class="trend-up">↑ 上昇</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">Scala</span></td>
+  <td>
+    <span class="tag tag-data">Data</span>
+    <span class="tag tag-biz">Biz</span>
+  </td>
+  <td class="desc">Java互換、Apache Spark（ビッグデータ）の主力言語。データ基盤エンジニア需要あり。一般求人数少なめだが単価高め。</td>
+  <td><span class="diff diff-high">高</span></td>
+  <td><span class="demand d2">★★☆☆☆</span></td>
+  <td><span class="demand d2">★★☆☆☆</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">COBOL</span></td>
+  <td>
+    <span class="tag tag-biz">Biz</span>
+  </td>
+  <td class="desc">銀行・保険・行政の基幹システムを支える老兵。日本でも2025年以降DX絡みで保守人材不足が深刻化。後継者不在により高単価化傾向。需要は特定領域に限定。</td>
+  <td><span class="diff diff-mid">中</span></td>
+  <td><span class="demand d2">★★☆☆☆</span></td>
+  <td><span class="demand d3">★★★☆☆</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+  <td><span class="trend-up">↑ 保守需要</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">MATLAB</span></td>
+  <td>
+    <span class="tag tag-ai">AI</span>
+    <span class="tag tag-embed">Embed</span>
+  </td>
+  <td class="desc">数値計算・制御工学・シミュレーション専用。自動車・航空・研究機関で需要安定。モデルベース開発でコード自動生成も。ライセンス費高額で企業・研究機関向け。</td>
+  <td><span class="diff diff-mid">中</span></td>
+  <td><span class="demand d2">★★☆☆☆</span></td>
+  <td><span class="demand d2">★★☆☆☆</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">Google Apps Script</span></td>
+  <td>
+    <span class="tag tag-auto">Auto</span>
+  </td>
+  <td class="desc">GmailやSpreadsheet等G Suite自動化の定番。ノーコード移行により需要縮小傾向も中小企業での業務自動化ニーズは継続。AI連携（Gemini API）で再活性化の兆し。</td>
+  <td><span class="diff diff-low">低</span></td>
+  <td><span class="demand d2">★★☆☆☆</span></td>
+  <td><span class="demand d2">★★☆☆☆</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+  <td><span class="trend-flat">→ 安定</span></td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">Perl</span></td>
+  <td>
+    <span class="tag tag-web">Web</span>
+    <span class="tag tag-auto">Auto</span>
+  </td>
+  <td class="desc">2025年TIOBE復調（Rと共にPythonの次を窺う）。スクリプト・テキスト処理の老兵。インフラ・レガシー保守での残存需要あり。新規採用はほぼなし。</td>
+  <td><span class="diff diff-mid">中</span></td>
+  <td><span class="demand d1">★☆☆☆☆</span></td>
+  <td><span class="demand d1">★☆☆☆☆</span></td>
+  <td><span class="trend-up">↑ 微復調</span></td>
+  <td><span class="trend-down">↓ 下降</span></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+<!-- ========== SECTION 2: TECH STACK TABLE ========== -->
+<div class="section-title">02 / スタック別・技術選定表</div>
+<div class="section-note">// システム設計案のスタック領域に対応。★=推奨 / ◎=実績十分 / △=検討段階</div>
+
+<div class="table-wrap stack-table">
+<table>
+<thead>
+  <tr>
+    <th>カテゴリ</th>
+    <th>主な技術・言語</th>
+    <th>具体ツール・ライブラリ</th>
+    <th>スケール</th>
+    <th>コスト目安</th>
+    <th>備考</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><span class="stack-category">🕷 クローリング<br>スクレイピング</span></td>
+  <td>
+    <span class="tag tag-ai">Python</span><br>
+    <span class="tag tag-web">JavaScript/Node</span>
+  </td>
+  <td>
+    <span class="stack-tech">
+      ★ Scrapy（大規模・非同期）<br>
+      ★ Playwright（JS描画対応）<br>
+      ◎ BeautifulSoup + requests<br>
+      ◎ Crawlee（Node.js製、モダン）<br>
+      △ Firecrawl（SaaS型、API）
+    </span>
+  </td>
+  <td><span class="diff diff-low">小〜大</span></td>
+  <td>OSS無料</td>
+  <td class="desc">PDF処理はpdfplumber推奨（PyPDF2より精度↑）。JS描画サイトはPlaywright/Puppeteer必須。</td>
+</tr>
+
+<tr>
+  <td><span class="stack-category">⏰ 定期実行<br>スケジューラ</span></td>
+  <td>
+    <span class="tag tag-cloud">YAML/Actions</span><br>
+    <span class="tag tag-cloud">Cron</span>
+  </td>
+  <td>
+    <span class="stack-tech">
+      ★ GitHub Actions（無料枠充実）<br>
+      ★ Cloudflare Workers Cron<br>
+      ◎ Cloud Run Jobs (GCP)<br>
+      ◎ AWS Lambda + EventBridge<br>
+      △ Temporal（複雑ワークフロー向け）
+    </span>
+  </td>
+  <td><span class="diff diff-low">小〜中</span></td>
+  <td>無料〜</td>
+  <td class="desc">小規模ならGitHub Actions（月2,000分無料）で十分。</td>
+</tr>
+
+<tr>
+  <td><span class="stack-category">🤖 データ処理<br>AI要約・構造化</span></td>
+  <td>
+    <span class="tag tag-ai">Python</span><br>
+    <span class="tag tag-ai">LLM API</span>
+  </td>
+  <td>
+    <span class="stack-tech">
+      ★ Claude API（要約・構造化）<br>
+      ★ LangChain / LlamaIndex<br>
+      ◎ OpenAI API<br>
+      ◎ spaCy（NLP前処理）<br>
+      △ Gemini API（コスト安め）
+    </span>
+  </td>
+  <td><span class="diff diff-low">〜大</span></td>
+  <td>API従量課金</td>
+  <td class="desc">住所正規化：Google Maps Geocoding API推奨。バッチ処理でコスト削減可。</td>
+</tr>
+
+<tr>
+  <td><span class="stack-category">🗄 データベース<br>DB</span></td>
+  <td>
+    <span class="tag tag-data">SQL</span><br>
+    <span class="tag tag-data">NoSQL</span>
+  </td>
+  <td>
+    <span class="stack-tech">
+      ★ PostgreSQL + Supabase（無料枠）<br>
+      ★ Cloudflare D1（SQLite互換、無料）<br>
+      ◎ PlanetScale / Neon（サーバーレスMySQL/PG）<br>
+      ◎ MongoDB Atlas（スキーマ柔軟）<br>
+      △ Turso（分散SQLite、Edge向け）
+    </span>
+  </td>
+  <td><span class="diff diff-low">小〜大</span></td>
+  <td>無料〜</td>
+  <td class="desc">全文検索ならpg_vectorとpgvectorの組み合わせが今のトレンド。ベクトル検索も同DBで完結可。</td>
+</tr>
+
+<tr>
+  <td><span class="stack-category">💻 フロントエンド<br>UI</span></td>
+  <td>
+    <span class="tag tag-web">TypeScript</span><br>
+    <span class="tag tag-web">JavaScript</span>
+  </td>
+  <td>
+    <span class="stack-tech">
+      ★ Next.js + Tailwind CSS（SEO◎）<br>
+      ★ Remix（フルスタック、高速）<br>
+      ◎ SvelteKit（軽量・高速）<br>
+      ◎ Astro（静的サイト特化）<br>
+      △ Nuxt.js（Vue系）
+    </span>
+  </td>
+  <td><span class="diff diff-low">小〜大</span></td>
+  <td>無料〜</td>
+  <td class="desc">SEO重視ならNext.js(App Router)一択。Vercel/Cloudflare Pagesで無料ホスティング可。</td>
+</tr>
+
+<tr>
+  <td><span class="stack-category">🚀 ホスティング<br>インフラ</span></td>
+  <td>
+    <span class="tag tag-cloud">Cloud</span>
+  </td>
+  <td>
+    <span class="stack-tech">
+      ★ Vercel（Next.js特化、無料枠◎）<br>
+      ★ Cloudflare Pages + Workers<br>
+      ◎ Railway（バックエンド・DBセット）<br>
+      ◎ Render（OSS Heroku代替）<br>
+      △ Fly.io（コンテナ・グローバル）
+    </span>
+  </td>
+  <td><span class="diff diff-low">小〜中</span></td>
+  <td>無料〜</td>
+  <td class="desc">フロント+バックエンド合算で月0〜3,000円運用が現実的。</td>
+</tr>
+
+<tr>
+  <td><span class="stack-category">🔍 検索<br>Search</span></td>
+  <td>
+    <span class="tag tag-data">SQL</span><br>
+    <span class="tag tag-ai">Vector</span>
+  </td>
+  <td>
+    <span class="stack-tech">
+      ★ PostgreSQL全文検索 + pg_trgm<br>
+      ★ pgvector（ベクトル/AI検索）<br>
+      ◎ Typesense（OSS、高速全文検索）<br>
+      ◎ Meilisearch（OSS、日本語対応）<br>
+      △ Algolia（SaaS、費用高め）
+    </span>
+  </td>
+  <td><span class="diff diff-low">小〜大</span></td>
+  <td>OSS無料</td>
+  <td class="desc">日本語形態素解析はPGroonga（PostgreSQL拡張）が有力。AI検索（意味検索）はpgvector+Embeddingが費用対効果◎。</td>
+</tr>
+
+<tr>
+  <td><span class="stack-category">🧠 AI / ML<br>モデル・推論</span></td>
+  <td>
+    <span class="tag tag-ai">Python</span><br>
+    <span class="tag tag-ai">LLM</span>
+  </td>
+  <td>
+    <span class="stack-tech">
+      ★ OpenAI API / Claude API<br>
+      ★ LangChain / LlamaIndex（RAG構築）<br>
+      ◎ HuggingFace Transformers（OSS）<br>
+      ◎ Ollama（ローカルLLM実行）<br>
+      △ Groq API（超高速推論）
+    </span>
+  </td>
+  <td><span class="diff diff-low">小〜大</span></td>
+  <td>API従量課金</td>
+  <td class="desc">RAG（検索拡張生成）がAIサービス構築の主流。Embeddingモデルはtext-embedding-3-smallで十分なケース多い。</td>
+</tr>
+
+<tr>
+  <td><span class="stack-category">📡 バックエンド<br>API / Server</span></td>
+  <td>
+    <span class="tag tag-ai">Python</span><br>
+    <span class="tag tag-cloud">Go</span><br>
+    <span class="tag tag-web">TypeScript</span>
+  </td>
+  <td>
+    <span class="stack-tech">
+      ★ FastAPI（Python、高速・型安全）<br>
+      ★ Hono（TypeScript、Edge対応・軽量）<br>
+      ◎ Express.js（Node.js定番）<br>
+      ◎ Gin / Echo（Go、高スループット）<br>
+      △ tRPC（TypeScript型安全フルスタック）
+    </span>
+  </td>
+  <td><span class="diff diff-low">小〜大</span></td>
+  <td>無料〜</td>
+  <td class="desc">FastAPIはOpenAPIドキュメント自動生成◎。CloudflareWorkers向けはHonoが事実上の標準。</td>
+</tr>
+
+<tr>
+  <td><span class="stack-category">🐳 コンテナ<br>DevOps</span></td>
+  <td>
+    <span class="tag tag-cloud">YAML</span><br>
+    <span class="tag tag-cloud">Shell</span>
+  </td>
+  <td>
+    <span class="stack-tech">
+      ★ Docker（2025年利用率+17pt急伸）<br>
+      ★ Docker Compose（ローカル開発）<br>
+      ◎ Kubernetes（大規模本番向け）<br>
+      ◎ GitHub Actions（CI/CD）<br>
+      △ Podman（Docker互換、デーモンレス）
+    </span>
+  </td>
+  <td><span class="diff diff-low">中〜大</span></td>
+  <td>無料〜</td>
+  <td class="desc">DockerはStack Overflow調査で最大の年間上昇幅（+17pt）を記録。小規模でもDocker Composeは必須レベルに。</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+<!-- ========== SECTION 3: EMERGING LANGUAGES ========== -->
+<div class="section-title">03 / 新興・注目言語（2025〜今後）</div>
+<div class="section-note">// 現在社会実装段階・研究段階。技術の最前線。習得価値は高いが求人は限定的。</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr>
+    <th>言語</th>
+    <th>ステータス</th>
+    <th>領域</th>
+    <th>特徴・注目ポイント</th>
+    <th>TIOBE(2025)</th>
+    <th>難易度</th>
+    <th>将来性</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td>
+    <span class="lang-name">Rust</span>
+    <span class="future-badge fb-watch">主流化進行中</span>
+  </td>
+  <td><span class="trend-up">↑↑ 実用段階</span></td>
+  <td>
+    <span class="tag tag-sys">Sys</span>
+    <span class="tag tag-cloud">Cloud</span>
+    <span class="tag tag-web">WASM</span>
+  </td>
+  <td class="desc">メモリ安全でC++に匹敵する性能。Linux Kernel・Windows・Android・Chrome等にRustコード採用。米CISA/NSAが安全なシステム言語として推奨。WebAssembly分野でも主役。</td>
+  <td><span class="demand d3">14〜15位</span></td>
+  <td><span class="diff diff-high">高</span></td>
+  <td><span class="trend-up">★★★★★</span></td>
+</tr>
+
+<tr>
+  <td>
+    <span class="lang-name">Mojo 🔥</span>
+    <span class="future-badge fb-watch">急浮上</span>
+  </td>
+  <td><span class="trend-new">✦ 新興</span></td>
+  <td>
+    <span class="tag tag-ai">AI</span>
+    <span class="tag tag-sys">HPC</span>
+  </td>
+  <td class="desc">Modular社開発。Pythonに近い文法で、高性能を狙うスーパーセット言語。GPU/AI推論最適化にフォーカスし、理論的にはC/C++に近い性能を目指す。AIハードウェア向けプログラミングを刷新する可能性。TIOBE #194→#68に急上昇。Pythonエンジニアが次に学ぶ候補として注目度が高い。</td>
+  <td><span class="demand d2">68位</span></td>
+  <td><span class="diff diff-mid">中（Python知識あれば）</span></td>
+  <td><span class="trend-up">★★★★☆</span></td>
+</tr>
+
+<tr>
+  <td>
+    <span class="lang-name">Zig</span>
+    <span class="future-badge fb-emerging">注目</span>
+  </td>
+  <td><span class="trend-new">✦ 新興</span></td>
+  <td>
+    <span class="tag tag-sys">Sys</span>
+    <span class="tag tag-embed">Embed</span>
+    <span class="tag tag-game">Game</span>
+  </td>
+  <td class="desc">「モダンなC言語」。Rustより学習コスト低。明示的メモリ管理、隠れた制御フローなし。TIOBE #149→46位（0.19%）。Rustに並ぶシステム言語候補として注目。Bun（JS実行環境）がZigで実装。</td>
+  <td><span class="demand d2">46位</span></td>
+  <td><span class="diff diff-mid">中</span></td>
+  <td><span class="trend-up">★★★★☆</span></td>
+</tr>
+
+<tr>
+  <td>
+    <span class="lang-name">Julia</span>
+    <span class="future-badge fb-research">科学技術</span>
+  </td>
+  <td><span class="trend-flat">→ 研究実用</span></td>
+  <td>
+    <span class="tag tag-data">Data</span>
+    <span class="tag tag-ai">AI</span>
+  </td>
+  <td class="desc">数値計算・科学計算特化。PythonのようなシンタックスでC並みの高速処理。NASA・MITで採用。機械学習・量子コンピューティング研究で活用。Pythonより高速な数値処理が必要な場合の選択肢。</td>
+  <td><span class="demand d2">〜30位</span></td>
+  <td><span class="diff diff-mid">中</span></td>
+  <td><span class="trend-up">★★★☆☆</span></td>
+</tr>
+
+<tr>
+  <td>
+    <span class="lang-name">Carbon</span>
+    <span class="future-badge fb-research">Google実験中</span>
+  </td>
+  <td><span class="trend-new">✦ 実験段階</span></td>
+  <td>
+    <span class="tag tag-sys">Sys</span>
+  </td>
+  <td class="desc">GoogleがC++の後継として開発中。既存C++コードとの相互運用性重視。メモリ安全性改善を目指す。Rustほどの制約なく移行しやすい設計。本格採用はまだ先だが業界の動向に影響大。</td>
+  <td><span class="demand d1">圏外</span></td>
+  <td><span class="diff diff-high">高</span></td>
+  <td><span class="trend-flat">★★★☆☆</span></td>
+</tr>
+
+<tr>
+  <td>
+    <span class="lang-name">Gleam</span>
+    <span class="future-badge fb-emerging">注目</span>
+  </td>
+  <td><span class="trend-new">✦ 新興</span></td>
+  <td>
+    <span class="tag tag-web">Web</span>
+    <span class="tag tag-biz">Biz</span>
+  </td>
+  <td class="desc">Erlang VM(BEAM)上で動作する型安全関数型言語。Elixirとの互換性もありスケーラブルな分散システム向き。静的型付けで安全性重視。少人数チームのスタートアップで採用増加中。</td>
+  <td><span class="demand d1">圏外</span></td>
+  <td><span class="diff diff-mid">中</span></td>
+  <td><span class="trend-up">★★★☆☆</span></td>
+</tr>
+
+<tr>
+  <td>
+    <span class="lang-name">Elixir</span>
+    <span class="future-badge fb-watch">実用段階</span>
+  </td>
+  <td><span class="trend-flat">→ ニッチ実用</span></td>
+  <td>
+    <span class="tag tag-web">Web</span>
+    <span class="tag tag-cloud">Cloud</span>
+  </td>
+  <td class="desc">Erlang VM上の関数型言語。高耐障害性・高並列処理。Phoenix LiveViewでリアルタイムWebアプリ。Discord・Pinterestで採用実績。少人数で高トラフィックを捌く設計に向く。</td>
+  <td><span class="demand d2">〜40位</span></td>
+  <td><span class="diff diff-mid">中〜高</span></td>
+  <td><span class="trend-up">★★★☆☆</span></td>
+</tr>
+
+<tr>
+  <td>
+    <span class="lang-name">WebAssembly<br>（Wasm）</span>
+    <span class="future-badge fb-watch">主流化進行中</span>
+  </td>
+  <td><span class="trend-up">↑ 実用拡大</span></td>
+  <td>
+    <span class="tag tag-web">Web</span>
+    <span class="tag tag-cloud">Edge</span>
+    <span class="tag tag-sys">Sys</span>
+  </td>
+  <td class="desc">厳密には「言語」ではなくバイナリ命令フォーマット。Rust/C++/Goなど多言語からコンパイル可能。ブラウザ上での高速実行、EdgeサーバレスComputeとして急拡大。WASIで非Web環境にも対応。</td>
+  <td>—</td>
+  <td><span class="diff diff-mid">中（元言語に依存）</span></td>
+  <td><span class="trend-up">★★★★★</span></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+<!-- ========== SECTION 4: FUTURE TRENDS ========== -->
+<div class="section-title">04 / 今後の技術動向・キーワード</div>
+<div class="section-note">// 業界・市場に出始めているが、まだ標準化していない技術・概念</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr>
+    <th>キーワード</th>
+    <th>領域</th>
+    <th>概要</th>
+    <th>時間軸</th>
+    <th>関連言語・技術</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><span class="lang-name">AIエージェント開発</span></td>
+  <td><span class="tag tag-ai">AI</span></td>
+  <td class="desc">LLMが自律的にツールを使い複数ステップのタスクを実行するエージェント設計。MCP（Model Context Protocol）・ReActパターンが普及中。LangGraph/AutoGen/CrewAIが主要フレームワーク。</td>
+  <td><span class="trend-up">今〜2年</span></td>
+  <td>Python, LangChain, TypeScript</td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">RAG / ベクトルDB</span></td>
+  <td><span class="tag tag-ai">AI</span><span class="tag tag-data">Data</span></td>
+  <td class="desc">LLMに自社データを組み込む検索拡張生成。pgvector（PostgreSQL）・Qdrant・Weaviate等のベクトルDBが急増。エンジニア必須スキル化が進む。Embeddingモデルの選択が重要。</td>
+  <td><span class="trend-up">今〜3年</span></td>
+  <td>Python, SQL, pgvector, Qdrant</td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">エッジコンピューティング</span></td>
+  <td><span class="tag tag-cloud">Cloud</span><span class="tag tag-embed">Embed</span></td>
+  <td class="desc">Cloudflare Workers・Vercel Edge等でコードをユーザーの近くで実行。レイテンシ削減・コスト削減。WebAssemblyがEdgeのランタイムとして標準化しつつある。</td>
+  <td><span class="trend-up">今〜3年</span></td>
+  <td>TypeScript, Rust, Wasm, Go</td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">AI支援コーディング<br>（Vibe Coding）</span></td>
+  <td><span class="tag tag-ai">AI</span><span class="tag tag-web">Web</span></td>
+  <td class="desc">GitHub Copilot・Cursor・Claude等でAIがコードを生成・補完。「Vibe Coding」として非エンジニアもアプリ開発する時代へ。言語知識より「設計力・プロンプト力」の重要性が増大。</td>
+  <td><span class="trend-up">今進行中</span></td>
+  <td>問わない（全言語）</td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">Rust in Linux/OS</span></td>
+  <td><span class="tag tag-sys">Sys</span></td>
+  <td class="desc">Linux Kernel 6.1からRust公式採用。Windows・AndroidカーネルにもRust導入。OSレベルでのC言語置き換えが本格化。組込・セキュリティ分野でRustエンジニアの希少価値が高まる見込み。</td>
+  <td><span class="trend-up">2〜5年</span></td>
+  <td>Rust, C</td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">量子コンピューティング<br>プログラミング</span></td>
+  <td><span class="tag tag-ai">AI</span><span class="tag tag-data">Data</span></td>
+  <td class="desc">Qiskit（IBM）・Cirq（Google）・Q#（Microsoft）等の量子言語・SDK。創薬・暗号・最適化への応用研究段階。商用化は5〜10年後見込みだが専門人材育成が先行。</td>
+  <td><span class="trend-flat">5〜10年</span></td>
+  <td>Python(Qiskit), Q#, Julia</td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">低コード/ノーコード<br>+ AIコード生成</span></td>
+  <td><span class="tag tag-web">Web</span><span class="tag tag-auto">Auto</span></td>
+  <td class="desc">Bubble・Webflow・Glide等のノーコードとAIコード生成（v0, Bolt.new等）の融合。プロダクト開発の民主化加速。エンジニアはより高度な設計・インフラ・AIレイヤーへ移行が進む。</td>
+  <td><span class="trend-up">今〜3年</span></td>
+  <td>JavaScript, TypeScript, Python</td>
+</tr>
+
+<tr>
+  <td><span class="lang-name">MCP<br>（Model Context Protocol）</span></td>
+  <td><span class="tag tag-ai">AI</span></td>
+  <td class="desc">Anthropicが提唱したAIとツール・データソースを接続する標準プロトコル（2024年末公開）。GitHub・Slack・Notion等の主要サービスがMCPサーバー公開中。LLMエージェント開発の基盤プロトコルとして急速に普及中。</td>
+  <td><span class="trend-up">今〜2年</span></td>
+  <td>TypeScript, Python</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<div class="source-line">
+  Sources: TIOBE Index (2025) · Stack Overflow Developer Survey 2025 · GitHub Octoverse 2024 · paiza プログラミング言語調査 2025 ·
+  日経xTECH プログラミング言語利用実態調査 2025 · レバテックキャリア求人数集計 2026.01 · RedMonk Q3 2024 · JetBrains State of Developer Ecosystem 2024<br><br>by pien 2026
+</div>
+
+</body>
+</html>
